@@ -1,6 +1,7 @@
 import pyautogui as pg
 import time
 import random
+import keyboard
 
 
 #mappa corn -52,8
@@ -77,6 +78,11 @@ def checkRice(conf = 0.75):
     if t:
       #click_pos(pos, pause=pause, y_offset=25, x_offset = 2, imageOffset= 18)
       return (True, pos)
+    t, pos = find_image(path + 'rice_5.png', conf = conf)
+    if t:
+      #click_pos(pos, pause=pause, y_offset=25, x_offset = 2, imageOffset= 18)
+      return (True, pos)
+
     
     return(False, None)
   except:
@@ -188,6 +194,18 @@ def checkcorn(conf = 0.6):
     t, pos = find_image(path + 'corn_15.png', conf = conf)
     if t:
       return (True, pos)
+    t, pos = find_image(path + 'corn_19.png', conf = conf)
+    if t:
+      return (True, pos)
+    t, pos = find_image(path + 'corn_20.png', conf = conf)
+    if t:
+      return (True, pos)
+    t, pos = find_image(path + 'corn_21.png', conf = conf)
+    if t:
+      return (True, pos)
+    t, pos = find_image(path + 'corn_22.png', conf = conf)
+    if t:
+      return (True, pos)
     return(False, None)
   except:
     pass
@@ -203,19 +221,19 @@ def rice_dinamic_routine():
   while True:
     seconds += time.time()- start
     t, pos = checkRice(conf=0.85)
-    if (not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_right.png',conf=0.95)[0]:
+    if (not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_right.png',conf=0.85)[0]:
       move_right()
       start = time.time()
       seconds = 0
-    elif (not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_down.png',conf=0.95)[0]:
+    elif (not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_down.png',conf=0.85)[0]:
       move_down()
       start = time.time()
       seconds = 0
-    elif(not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_left.png',conf=0.95)[0]:
+    elif(not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_left.png',conf=0.65)[0]:
       move_left()
       start = time.time()
       seconds = 0
-    elif(not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_up.png',conf=0.95)[0]:
+    elif(not t) and seconds > random.uniform(1, 3) and find_image(path + 'rice_up.png',conf=0.85)[0]:
       move_up()
       start = time.time()
       seconds = 0
@@ -237,7 +255,7 @@ def static_routine( middle_img, check_resource, pause = 1.5, y_offset = 0, x_off
   while True:
     seconds += time.time()- start
     t, pos = check_resource(conf=0.85)
-    if (not t) and seconds > random.uniform(120, 160):
+    if (not t) and seconds > random.uniform(220, 260):
       bool, pos = find_image(path + middle_img, conf=0.95)
       if bool:
         click_pos(pos)
@@ -247,16 +265,56 @@ def static_routine( middle_img, check_resource, pause = 1.5, y_offset = 0, x_off
       if pos not in save_pos:
         click_pos(pos, pause=pause, y_offset=y_offset, x_offset = x_offset, imageOffset= imageOffset)
         save_pos.append(pos)
+        start = time.time()
+        seconds = 0
         #print(save_pos)
         if len(save_pos) > 4:
           save_pos.pop(0)
 
 
+def f13_15():
+  while True: 
+    if keyboard.is_pressed('0'):
+      while True:
+        pg.click(1455, 724)
+        pg.click(1422, 690)
+        pg.click(1354, 715)
+        if keyboard.is_pressed('l'):
+          break
+      
+    #pg.click(1405, 719)
 
+def f28_42():
+  while True: 
+    if keyboard.is_pressed('0'):
+      while True:
+        pg.click(1281, 620)
+        pg.click(1304, 650)
+        pg.click(1296, 692)
+        pg.click(1259, 709)
+        pg.click(1226, 683)
+        pg.click(1232, 649)
+        if keyboard.is_pressed('l'):
+          break
       
 
+def f26_43():
+  while True: 
+    if keyboard.is_pressed('0'):
+      while True:
+        pg.click(595, 390)
+        pg.click(617, 350)
+        pg.click(571, 323)
+        pg.click(494, 353)
+        pg.click(533, 396)
+        pg.click(657, 405)
+        pg.click(676, 324)
+
+        if keyboard.is_pressed('l'):
+          break
+
 #rice_dinamic_routine()
-static_routine('middle_rice.png', checkRice, y_offset=25, x_offset=2, imageOffset=18) #rice
+#static_routine('middle_rice.png', checkRice, y_offset=25, x_offset=2, imageOffset=18) #rice
 #static_routine('middle_corn.png', checkcorn, y_offset=0, x_offset=0, imageOffset=25) # ottimo su mappa con i due campi [-52, 8]
 #rice_dinamic_routine()
 #checkhemp()
@@ -266,3 +324,11 @@ static_routine('middle_rice.png', checkRice, y_offset=25, x_offset=2, imageOffse
 #checkflax()
 #checkbarley()
 #checkRice()
+
+#pos[-28, -42]
+#f28_42()
+
+#pos [13,15]
+#f13_15()
+#print(pg.position())
+f26_43()
